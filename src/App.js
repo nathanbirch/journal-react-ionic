@@ -1,7 +1,11 @@
+import { setupIonicReact } from '@ionic/react';
+import '@ionic/react/css/core.css';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+setupIonicReact();
+
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -9,6 +13,10 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <p>
+          This will be the home page or 'sign in' page.
+        </p>
+
         <a
           className="App-link"
           href="https://reactjs.org"
