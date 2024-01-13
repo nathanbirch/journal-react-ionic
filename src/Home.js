@@ -2,6 +2,7 @@ import '@ionic/react/css/core.css';
 import logo from './logo.svg';
 import './Home.css';
 import { IonButton, IonDatetime, IonContent, IonPage, setupIonicReact } from '@ionic/react';
+import { Amplify } from 'aws-amplify';
 
 setupIonicReact();
 
