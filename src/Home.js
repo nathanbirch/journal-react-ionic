@@ -1,6 +1,6 @@
 import '@ionic/react/css/core.css';
 import logo from './logo.svg';
-import './App.css';
+import './Home.css';
 import { IonButton, IonDatetime, IonContent, IonPage, setupIonicReact } from '@ionic/react';
 
 setupIonicReact();
@@ -13,7 +13,7 @@ const App = () => {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              Edit <code>src/App.js</code> and save to reload.
+              Edit <code>iJournal</code> and save to reload.
             </p>
 
             <p>This will be the main or 'sign in' page</p>
