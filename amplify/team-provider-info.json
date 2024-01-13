@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-journalreactionic-dev-180917-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112764259:role/amplify-journalreactionic-dev-180917-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112764259:role/amplify-journalreactionic-dev-180917-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-journalreactionic-dev-180917-deployment",
+      "UnauthRoleName": "amplify-journalreactionic-dev-180917-unauthRole",
+      "StackName": "amplify-journalreactionic-dev-180917",
+      "StackId": "arn:aws:cloudformation:us-east-2:471112764259:stack/amplify-journalreactionic-dev-180917/6198fa40-b1b0-11ee-bc38-0289cc93c023",
+      "AmplifyAppId": "d9xk1igb6xglk"
+    }
+  }
+}

@@ -3,11 +3,16 @@ import logo from './logo.svg';
 import './Home.css';
 import { IonButton, IonDatetime, IonContent, IonPage, setupIonicReact } from '@ionic/react';
 import { Amplify } from 'aws-amplify';
-
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import config from './amplifyconfiguration.json';
+Amplify.configure(config);
 setupIonicReact();
 
-const App = () => {
+function App() {
   return (
+    <Authenticator>
+      {({ signOut, user }) => 
     <IonPage>
       <IonContent>
         <div className="App">
@@ -15,6 +20,14 @@ const App = () => {
             <img src={logo} className="App-logo" alt="logo" />
             <p>
               Edit <code>iJournal</code> and save to reload.
+            </p>
+
+            <h1>
+            Welcome {user.username}
+            </h1>
+
+            <p>
+            <button onClick={signOut}>Sign out</button>
             </p>
 
             <p>This will be the main or 'sign in' page</p>
@@ -31,7 +44,8 @@ const App = () => {
         </div>
       </IonContent>
     </IonPage>
-  );
+}</Authenticator>
+    );
 }
 
 export default App;
