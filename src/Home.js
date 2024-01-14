@@ -1,7 +1,7 @@
 import '@ionic/react/css/core.css';
 import logo from './logo.svg';
 import './Home.css';
-import { IonButton, IonDatetime, IonContent, IonPage, setupIonicReact, IonFooter, IonToolbar } from '@ionic/react';
+import { IonHeader, IonButton, IonDatetime, IonContent, IonPage, setupIonicReact, IonFooter, IonToolbar } from '@ionic/react';
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -17,12 +17,13 @@ function App() {
     <Authenticator>
       {({ signOut, user }) => 
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+        <h1 className="Home-header">Welcome {capitalizeFirstLetter(user.username)}</h1>
+
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
-        <div>
-          <header className="Home-header">
-          <h1>Welcome {capitalizeFirstLetter(user.username)}</h1>
-          </header>
-        </div>
         <div className="App">
           <main className="Home-main">
             {/*<img src={logo} className="App-logo" alt="logo" />*/}
