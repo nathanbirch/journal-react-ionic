@@ -1,7 +1,7 @@
 import '@ionic/react/css/core.css';
 import logo from './logo.svg';
 import './Home.css';
-import { IonButton, IonDatetime, IonContent, IonPage, setupIonicReact } from '@ionic/react';
+import { IonButton, IonDatetime, IonContent, IonPage, setupIonicReact, IonFooter, IonToolbar } from '@ionic/react';
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -17,20 +17,21 @@ function App() {
       <IonContent>
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>iJournal</code> and save to reload.
-            </p>
+            {/*<img src={logo} className="App-logo" alt="logo" />*/}
 
             <h1>
             Welcome {user.username}
             </h1>
-
+            
             <p>
+              This will be the main or 'sign in' page
+              </p>
+
+            <p>            
             <button onClick={signOut}>Sign out</button>
             </p>
 
-            <p>This will be the main or 'sign in' page</p>
+
 
             <a
               className="App-link"
@@ -43,7 +44,12 @@ function App() {
           </header>
         </div>
       </IonContent>
-    </IonPage>
+        <IonFooter translucent={true}>
+          <IonToolbar>
+            <button onClick={signOut}>Sign out</button>
+          </IonToolbar>
+        </IonFooter>
+      </IonPage>
 }</Authenticator>
     );
 }
