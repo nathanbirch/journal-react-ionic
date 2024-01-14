@@ -17,8 +17,22 @@
 }
 */
 
-.App-header {
-  background-color: #282c34;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Home-header {
+  background-color: rgb(255, 255, 255);
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+}
+
+.Home-main {
+  background-color: #3c3932;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,10 +42,14 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+
+.footer_text {
+  text-align: center;
 }
 
+/*
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -40,4 +58,5 @@
     transform: rotate(360deg);
   }
 }
+*/
 

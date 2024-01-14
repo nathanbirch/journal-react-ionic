@@ -11,47 +11,48 @@ setupIonicReact();
 
 function App() {
   return (
+
+
+
     <Authenticator>
       {({ signOut, user }) => 
     <IonPage>
       <IonContent>
-        <div className="App">
-          <header className="App-header">
-            {/*<img src={logo} className="App-logo" alt="logo" />*/}
-
-            <h1>
-            Welcome {user.username}
-            </h1>
-            
-            <p>
-              This will be the main or 'sign in' page
-              </p>
-
-            <p>            
-            <button onClick={signOut}>Sign out</button>
-            </p>
-
-
-
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
+        <div>
+          <header className="Home-header">
+          <h1>Welcome {capitalizeFirstLetter(user.username)}</h1>
           </header>
+        </div>
+        <div className="App">
+          <main className="Home-main">
+            {/*<img src={logo} className="App-logo" alt="logo" />*/}
+            
+            <p>This will be the main page</p>
+            <br></br>
+            <p><button onClick={signOut}>Sign out</button></p>
+
+          </main>
         </div>
       </IonContent>
         <IonFooter translucent={true}>
           <IonToolbar>
-            <button onClick={signOut}>Sign out</button>
+              <div>
+              <h1 className="footer_text">FOOTER</h1>
+              </div>
           </IonToolbar>
         </IonFooter>
       </IonPage>
 }</Authenticator>
+
+
+
     );
+}
+
+
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export default App;
