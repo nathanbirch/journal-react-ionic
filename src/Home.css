@@ -1,4 +1,4 @@
-.App {
+.Home {
   text-align: center;
 }
 
@@ -40,13 +40,19 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 5%;
 }
 
 
 
 
 .footer_text {
-  text-align: center;
+  background-color: rgb(255, 255, 255);
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0)
 }
 
 /*

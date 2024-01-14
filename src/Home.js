@@ -11,42 +11,46 @@ setupIonicReact();
 
 function App() {
   return (
-
-
-
     <Authenticator>
       {({ signOut, user }) => 
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-        <h1 className="Home-header">Welcome {capitalizeFirstLetter(user.username)}</h1>
 
-        </IonToolbar>
+    <IonPage>
+
+      <IonHeader>
+      <IonToolbar>
+        <div>
+          <h1 className="Home-header">Welcome {capitalizeFirstLetter(user.username)}</h1>
+        </div>
+      </IonToolbar>
       </IonHeader>
+
       <IonContent>
-        <div className="App">
+        <div className="Home">
           <main className="Home-main">
             {/*<img src={logo} className="App-logo" alt="logo" />*/}
             
             <p>This will be the main page</p>
             <br></br>
             <p><button onClick={signOut}>Sign out</button></p>
+            <br></br>
+            <p>This is testing for pulling data from amplify. The journal entries will be pulled and put down here \/</p>
+            
 
           </main>
         </div>
       </IonContent>
+
         <IonFooter translucent={true}>
           <IonToolbar>
-              <div>
-              <h1 className="footer_text">FOOTER</h1>
+              <div className="footer_text">
+              <h1>FOOTER</h1>
               </div>
           </IonToolbar>
         </IonFooter>
+
       </IonPage>
+
 }</Authenticator>
-
-
-
     );
 }
 
