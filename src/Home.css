@@ -66,3 +66,16 @@
 }
 */
 
+.signout_button {
+  top:0;
+  right:0;
+  height: 30px;
+  width: 100px;
+  position: absolute;
+  margin-right: 5px;
+  margin-top: 5px;
+  line-height: 12px;
+  border-radius: 10px 40px;
+  background-color: rgb(229, 204, 171);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}

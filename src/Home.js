@@ -9,7 +9,7 @@ import config from './amplifyconfiguration.json';
 Amplify.configure(config);
 setupIonicReact();
 
-function App() {
+function Home() {
   return (
     <Authenticator>
       {({ signOut, user }) => 
@@ -27,14 +27,15 @@ function App() {
       <IonContent>
         <div className="Home">
           <main className="Home-main">
+            <p><button className='signout_button' onClick={signOut}>Sign out</button></p>
+
+
             {/*<img src={logo} className="App-logo" alt="logo" />*/}
             
             <p>This will be the main page</p>
             <br></br>
-            <p><button onClick={signOut}>Sign out</button></p>
             <br></br>
             <p>This is testing for pulling data from amplify. The journal entries will be pulled and put down here \/</p>
-            
 
           </main>
         </div>
@@ -60,4 +61,8 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export default App;
+export default Home;
+
+
+
+//const ListEntries = await DataStore.query(Entry);
