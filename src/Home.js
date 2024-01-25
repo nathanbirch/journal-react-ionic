@@ -1,15 +1,21 @@
 import '@ionic/react/css/core.css';
 import logo from './logo.svg';
 import './Home.css';
+import React, { useState } from 'react';
 import { IonHeader, IonButton, IonDatetime, IonContent, IonPage, setupIonicReact, IonFooter, IonToolbar } from '@ionic/react';
 import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import config from './amplifyconfiguration.json';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 Amplify.configure(config);
 setupIonicReact();
 
 function Home() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   return (
     <Authenticator>
       {({ signOut, user }) => 
@@ -28,6 +34,7 @@ function Home() {
         <div className="Home">
           <main className="Home-main">
             <p><button className='signout_button' onClick={signOut}>Sign out</button></p>
+            <Calendar onChange={date => setSelectedDate(date)} value={selectedDate} />
 
 
             {/*<img src={logo} className="App-logo" alt="logo" />*/}
