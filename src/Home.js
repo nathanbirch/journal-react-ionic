@@ -34,7 +34,11 @@ function Home() {
         <div className="Home">
           <main className="Home-main">
             <p><button className='signout_button' onClick={signOut}>Sign out</button></p>
-            <Calendar onChange={date => setSelectedDate(date)} value={selectedDate} />
+            <Calendar
+              onChange={date => setSelectedDate(date)}
+              value={selectedDate}
+              locale="en-US"
+              />
 
 
             {/*<img src={logo} className="App-logo" alt="logo" />*/}
