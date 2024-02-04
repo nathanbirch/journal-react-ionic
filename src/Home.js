@@ -1,78 +1,53 @@
-import '@ionic/react/css/core.css';
-import logo from './logo.svg';
-import './Home.css';
 import React, { useState } from 'react';
-import { IonHeader, IonButton, IonDatetime, IonContent, IonPage, setupIonicReact, IonFooter, IonToolbar } from '@ionic/react';
-import { Amplify } from 'aws-amplify';
+import { IonButton, IonContent, IonPage, setupIonicReact } from '@ionic/react';
+import '@ionic/react/css/core.css';
+import './Home.css';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import config from './amplifyconfiguration.json';
+import { Amplify } from 'aws-amplify';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { components, formFields } from './components.js'
+//import formFields from './formfields.js';
 
-Amplify.configure(config);
+import aswExports from './aws-exports';
+Amplify.configure(aswExports);
 setupIonicReact();
 
-function Home() {
+export default function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
 
   return (
-    <Authenticator>
+    <Authenticator formFields={formFields} components={components}>
       {({ signOut, user }) => 
-
     <IonPage>
-
-      <IonHeader>
-      <IonToolbar>
-        <div>
-          <h1 className="Home-header">Welcome {capitalizeFirstLetter(user.username)}</h1>
-        </div>
-      </IonToolbar>
-      </IonHeader>
-
       <IonContent>
         <div className="Home">
           <main className="Home-main">
-            <p><button className='signout_button' onClick={signOut}>Sign out</button></p>
+          <h1>Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
+            <IonButton className='signout_button' onClick={signOut}>Sign out</IonButton>
+
             <Calendar
               onChange={date => setSelectedDate(date)}
               value={selectedDate}
               locale="en-US"
-              />
+              className='calendar'
+              />            
 
-
-            {/*<img src={logo} className="App-logo" alt="logo" />*/}
-            
-            <p>This will be the main page</p>
-            <br></br>
-            <br></br>
-            <p>This is testing for pulling data from amplify. The journal entries will be pulled and put down here \/</p>
 
           </main>
         </div>
       </IonContent>
-
-        <IonFooter translucent={true}>
-          <IonToolbar>
-              <div className="footer_text">
-              <h1>FOOTER</h1>
-              </div>
-          </IonToolbar>
-        </IonFooter>
-
       </IonPage>
 
 }</Authenticator>
     );
 }
 
-
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-export default Home;
 
 
 
