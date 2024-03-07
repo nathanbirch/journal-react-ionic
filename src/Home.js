@@ -18,6 +18,18 @@ setupIonicReact();
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [bubbleAnimation, setBubbleAnimation] = useState(false);
+  const handleMenuClick = () => {
+    // Trigger the bubble animation
+    setBubbleAnimation(true);
+    // Additional logic for toggling sidebar
+    toggleSidebar();
+
+    // Remove the animation class after the animation is complete
+    setTimeout(() => {
+      setBubbleAnimation(false);
+    }, 500); // 500ms matches the animation duration
+  };
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -48,9 +60,6 @@ export default function Home() {
   }, [isSidebarOpen]);
 
   
-  
-  
-
   return (
     <Authenticator formFields={formFields} components={components}>
       {({ signOut, user }) => 
@@ -58,19 +67,18 @@ export default function Home() {
       <IonContent>
         <div className="Home">
           <main className="Home-main">
-          <h1>Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
+          <h1 className="welcome-message">Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
 
             {/*for menu button in upper left corner*/}
-            <IonButton className="menu_button" onClick={toggleSidebar}>
-              <IonIcon icon={menu}/>
+            <IonButton className={`menu_button ${bubbleAnimation ? 'bubble-animation' : ''}`} color="medium" onClick={handleMenuClick}>
+              <IonIcon icon={menu} />
             </IonButton>
 
             <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
             {/* Sidebar content goes here */}
             <div className="sidebar-content">
               <h2>Sidebar topics</h2>
-              <h2></h2>
-              <IonButton className='signout_button' onClick={signOut}>Sign out</IonButton>
+              <IonButton className='signout_button' color="medium" onClick={signOut}>Sign out</IonButton>
             </div>
             </div>
 
@@ -84,7 +92,7 @@ export default function Home() {
           </main>
         </div>
       </IonContent>
-      </IonPage>
+    </IonPage>
 
 }</Authenticator>
     );

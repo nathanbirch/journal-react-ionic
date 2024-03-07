@@ -11,15 +11,6 @@
   padding: 0;
 }
 
-.Home-header {
-  background-color: rgb(255, 255, 255);
-  min-height: 10vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(0, 0, 0);
-}
-
 .Home-main {
   background-color: #FFF8E1;
   min-height: 100vh;
@@ -32,10 +23,28 @@
   padding: 5%;
 }
 
+.welcome-message {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  text-align: center;
+  color: black;
+  margin-top: 20px;
+}
+
 .calendar {
   color: black;
   border-radius: 30px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 75px;
+}
+
+.react-calendar__tile--active {
+  background-color: #007bff;
+  border-radius: 50%;
 }
 
 [data-amplify-authenticator] {
@@ -110,4 +119,29 @@
   display: block;
   padding: 10px;
   text-decoration: none;
+}
+
+
+
+
+
+
+
+@keyframes bubble {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.bubble-animation {
+  animation: bubble 0.5s ease;
 }
