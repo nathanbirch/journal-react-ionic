@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { IonButton, IonContent, IonPage, setupIonicReact } from '@ionic/react';
+import { IonButton, IonContent, IonPage, IonIcon, setupIonicReact } from '@ionic/react';
+import { menu } from 'ionicons/icons';
 import '@ionic/react/css/core.css';
 import './Home.css';
 import { Authenticator } from '@aws-amplify/ui-react';
@@ -30,6 +31,11 @@ export default function Home() {
           <main className="Home-main">
           <h1>Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
             <IonButton className='signout_button' onClick={signOut}>Sign out</IonButton>
+
+            {/*for menu button in upper left corner*/}
+            <IonButton className="menu_button">
+              <IonIcon icon={menu}/>
+            </IonButton>
 
             <Calendar
               onChange={date => setSelectedDate(date)}
