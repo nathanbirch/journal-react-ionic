@@ -1,104 +1,113 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { IonButton, IonContent, IonPage, IonIcon, setupIonicReact } from '@ionic/react';
-import { menu } from 'ionicons/icons';
-import '@ionic/react/css/core.css';
-import './Home.css';
-import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import { Amplify } from 'aws-amplify';
+import { menu, add } from 'ionicons/icons';
 import Calendar from 'react-calendar';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import config from './aws-exports';
+import '@ionic/react/css/core.css';
 import 'react-calendar/dist/Calendar.css';
-import { components, formFields } from './components.js'
-//import formFields from './formfields.js';
+import '@aws-amplify/ui-react/styles.css';
+import './Home.css';
+import { components, formFields } from './components';
 
-import aswExports from './aws-exports';
-Amplify.configure(aswExports);
+Amplify.configure(config);
 setupIonicReact();
 
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [bubbleAnimation, setBubbleAnimation] = useState(false);
-  const handleMenuClick = () => {
-    // Trigger the bubble animation
-    setBubbleAnimation(true);
-    // Additional logic for toggling sidebar
-    toggleSidebar();
+  const [showEntriesModal, setShowEntriesModal] = useState(false);
+  const [currentEntries, setCurrentEntries] = useState([]);
 
-    // Remove the animation class after the animation is complete
-    setTimeout(() => {
-      setBubbleAnimation(false);
-    }, 500); // 500ms matches the animation duration
+  const handleMenuClick = () => {
+    setBubbleAnimation(true);
+    toggleSidebar();
+    setTimeout(() => setBubbleAnimation(false), 500);
   };
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function toggleSidebar() {
+  const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  }
-    
-  useEffect(() => {
-    // Function to handle outside click
-    function handleOutsideClick(event) {
-      // Close the sidebar if the click is outside of the sidebar
-      if (!event.target.closest('.sidebar') && !event.target.closest('.menu_button')) {
-        setIsSidebarOpen(false);
-      }
-    }
-  
+  };
 
-    if (isSidebarOpen) {
-      document.addEventListener('click', handleOutsideClick);
-    }
-  
-    // Cleanup function to remove the event listener
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [isSidebarOpen]);
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
-  
+  const handleDateClick = async (date) => {
+    setSelectedDate(date);
+    // TODO: Fetch the entries for the selected date
+    const entriesForDate = []; // Replace with actual data fetching logic
+    setCurrentEntries(entriesForDate);
+    setShowEntriesModal(true);
+  };
+
+  const EntriesModal = ({ isOpen, onClose, entries }) => {
+    if (!isOpen) return null;
+    return (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h2>Entries for {selectedDate.toDateString()}</h2>
+          <ul>
+            {entries.length > 0 ? (
+              entries.map((entry, index) => <li key={index}>{entry.content}</li>)
+            ) : (
+              <p>No entries for this date.</p>
+            )}
+          </ul>
+          <IonButton onClick={onClose}>Close</IonButton>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Authenticator formFields={formFields} components={components}>
-      {({ signOut, user }) => 
-    <IonPage>
-      <IonContent>
-        <div className="Home">
-          <main className="Home-main">
-          <h1 className="welcome-message">Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
+      {({ signOut, user }) => (
+        <IonPage>
+          <IonContent>
+            <div className="Home">
+              <main className="Home-main">
+                <h1 className="welcome-message">Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
+                <IonButton className={`menu_button ${bubbleAnimation ? 'bubble-animation' : ''}`} color="medium" onClick={handleMenuClick}>
+                  <IonIcon icon={menu} />
+                </IonButton>
 
-            {/*for menu button in upper left corner*/}
-            <IonButton className={`menu_button ${bubbleAnimation ? 'bubble-animation' : ''}`} color="medium" onClick={handleMenuClick}>
-              <IonIcon icon={menu} />
-            </IonButton>
+                <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+                  <div className="sidebar-content">
+                    <h2>Sidebar Topics</h2>
+                    <IonButton className='signout_button' color="medium" onClick={signOut}>Sign out</IonButton>
+                  </div>
+                </div>
 
-            <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-            {/* Sidebar content goes here */}
-            <div className="sidebar-content">
-              <h2>Sidebar topics</h2>
-              <IonButton className='signout_button' color="medium" onClick={signOut}>Sign out</IonButton>
+                <Calendar
+                  onChange={handleDateClick}
+                  value={selectedDate}
+                  locale="en-US"
+                  className='calendar'
+                />
+
+                <EntriesModal
+                  isOpen={showEntriesModal}
+                  onClose={() => setShowEntriesModal(false)}
+                  entries={currentEntries}
+                />
+
+                {/* Floating Action Button */}
+                <IonButton
+                  className="fab"
+                  onClick={() => {
+                    // TODO: handle the click event for adding a new entry
+                  }}>
+                  <IonIcon icon={add} />
+                </IonButton>
+
+              </main>
             </div>
-            </div>
-
-            <Calendar
-              onChange={date => setSelectedDate(date)}
-              value={selectedDate}
-              locale="en-US"
-              className='calendar'/>            
-
-
-          </main>
-        </div>
-      </IonContent>
-    </IonPage>
-
-}</Authenticator>
-    );
+          </IonContent>
+        </IonPage>
+      )}
+    </Authenticator>
+  );
 }
-
-
-
-
-//const ListEntries = await DataStore.query(Entry);

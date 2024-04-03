@@ -12,7 +12,7 @@
 }
 
 .Home-main {
-  background-color: #FFF8E1;
+  background-image: linear-gradient(to top, #D291BC, #FFF8E1);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
   border-radius: 30px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   position: absolute;
-  top: 75px;
+  top: 100px;
 }
 
 .react-calendar__tile--active {
@@ -73,24 +73,13 @@
   top: 0;
   width: 250px;
   height: 100%;
-  background-color: #96c6f6;
+  background-color: #e9e9f3;
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 60px;
   z-index: 1000;
   border-right: 3px solid #ccc;
   box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar .signout_button {
-  align-self: center;
-  position: absolute;
-  bottom: 20px;
-  width: auto;
-  margin: 0;
-  border-radius: 10%;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
 }
 
 .sidebar.open {
@@ -115,17 +104,11 @@
   padding: 0;
 }
 
-.sidebar-conent ul li a {
+.sidebar-content ul li a {
   display: block;
   padding: 10px;
   text-decoration: none;
 }
-
-
-
-
-
-
 
 @keyframes bubble {
   0% {
@@ -145,3 +128,74 @@
 .bubble-animation {
   animation: bubble 0.5s ease;
 }
+
+/* Styles for the modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  text-align: left;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content ul li {
+  background-color: #f0f0f0;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.modal-content p {
+  color: #333;
+}
+
+/* If you have a close button in modal */
+.modal-content .close-button {
+  cursor: pointer;
+  position: center;
+  right: 20px;
+  top: 20px;
+}
+
+
+/* Styles for the Floating Action Button */
+.fab {
+  position: absolute;
+  bottom: 15px; /* Adjust the position as needed */
+  right: 15px; /* Adjust the position as needed */
+  width: 50px; /* Circle size */
+  height: 50px; /* Circle size */
+  border-radius: 50%; /* Makes it round */
+  background-color: #007bff; /* Button color, change as needed */
+  color: white; /* Icon color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --ion-color-base: transparent; /* Removes the default button color of Ionic */
+}
+
