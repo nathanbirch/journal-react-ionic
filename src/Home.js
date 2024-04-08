@@ -16,10 +16,14 @@ setupIonicReact();
 
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [entries, setEntries] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [bubbleAnimation, setBubbleAnimation] = useState(false);
   const [showEntriesModal, setShowEntriesModal] = useState(false);
   const [currentEntries, setCurrentEntries] = useState([]);
+  const [showAddEntryModal, setShowAddEntryModal] = useState(false);
+  const [entryTime, setEntryTime] = useState('');
+  const [entryText, setEntryText] = useState('');
 
   const handleMenuClick = () => {
     setBubbleAnimation(true);
@@ -31,35 +35,24 @@ export default function Home() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-
-  const handleDateClick = async (date) => {
+  const handleDateClick = (date) => {
     setSelectedDate(date);
-    // TODO: Fetch the entries for the selected date
-    const entriesForDate = []; // Replace with actual data fetching logic
+    const entriesForDate = entries.filter((entry) => entry.date === date.toISOString().split('T')[0]);
     setCurrentEntries(entriesForDate);
     setShowEntriesModal(true);
+    setShowAddEntryModal(false);
   };
 
-  const EntriesModal = ({ isOpen, onClose, entries }) => {
-    if (!isOpen) return null;
-    return (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <h2>Entries for {selectedDate.toDateString()}</h2>
-          <ul>
-            {entries.length > 0 ? (
-              entries.map((entry, index) => <li key={index}>{entry.content}</li>)
-            ) : (
-              <p>No entries for this date.</p>
-            )}
-          </ul>
-          <IonButton onClick={onClose}>Close</IonButton>
-        </div>
-      </div>
-    );
+  const addEntry = () => {
+    const newEntry = {
+      date: selectedDate.toISOString().split('T')[0],
+      time: entryTime,
+      text: entryText,
+    };
+    setEntries([...entries, newEntry]);
+    setEntryTime('');
+    setEntryText('');
+    setShowAddEntryModal(false);
   };
 
   return (
@@ -69,7 +62,7 @@ export default function Home() {
           <IonContent>
             <div className="Home">
               <main className="Home-main">
-                <h1 className="welcome-message">Welcome {user ? capitalizeFirstLetter(user.username) : ''}</h1>
+                <h1 className="welcome-message">Welcome {user ? user.username : 'Guest'}</h1>
                 <IonButton className={`menu_button ${bubbleAnimation ? 'bubble-animation' : ''}`} color="medium" onClick={handleMenuClick}>
                   <IonIcon icon={menu} />
                 </IonButton>
@@ -88,18 +81,49 @@ export default function Home() {
                   className='calendar'
                 />
 
-                <EntriesModal
-                  isOpen={showEntriesModal}
-                  onClose={() => setShowEntriesModal(false)}
-                  entries={currentEntries}
-                />
+                {showEntriesModal && (
+                  <div className="modal-overlay" onClick={() => setShowEntriesModal(false)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                      <h2>Entries for {selectedDate.toDateString()}</h2>
+                      <ul>
+                        {currentEntries.length > 0 ? (
+                          currentEntries.map((entry, index) => (
+                            <li key={index}>{`${entry.time} - ${entry.text}`}</li>
+                          ))
+                        ) : (
+                          <p>No entries for this date.</p>
+                        )}
+                      </ul>
+                      <IonButton onClick={() => setShowEntriesModal(false)}>Close</IonButton>
+                    </div>
+                  </div>
+                )}
 
-                {/* Floating Action Button */}
+                {showAddEntryModal && (
+                  <>
+                    <div className="modal-overlay" onClick={() => setShowAddEntryModal(false)}></div>
+                    <div className="add-entry-modal">
+                      <h2>Add New Entry</h2>
+                      <input 
+                        type="time" 
+                        value={entryTime} 
+                        onChange={(e) => setEntryTime(e.target.value)} 
+                        placeholder="Time of Entry" 
+                      />
+                      <textarea 
+                        value={entryText} 
+                        onChange={(e) => setEntryText(e.target.value)} 
+                        placeholder="Entry Description"
+                      ></textarea>
+                      <IonButton onClick={addEntry}>Save Entry</IonButton>
+                      <IonButton onClick={() => setShowAddEntryModal(false)}>Close</IonButton>
+                    </div>
+                  </>
+                )}
+
                 <IonButton
                   className="fab"
-                  onClick={() => {
-                    // TODO: handle the click event for adding a new entry
-                  }}>
+                  onClick={() => setShowAddEntryModal(true)}>
                   <IonIcon icon={add} />
                 </IonButton>
 
